@@ -30,6 +30,9 @@ from map import MapNode
 
 map_node_list = []
 
+# Create continent_list: index is continent number, value is list of node numbers in that continent
+continent_list = [[] for _ in range(6)]
+
 for node in range(0,42):
     x = MapNode()
     x.num = node
@@ -46,7 +49,14 @@ for node in range(0,42):
         x.continent=4
     else:
         x.continent=5
+    continent_list[x.continent].append(node)
     
+
+
+for ii in range(0,6):
+    print("Continent ", ii, " has nodes: ", continent_list[ii])
+
+
 
 print(map_node_list)
 for ii in range(0,42):
