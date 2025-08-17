@@ -5,8 +5,11 @@
 
 debug_mode = 1
 
+TOTAL_NODES = 42
+
 #from torch import *
 from map import MapNode
+import random
 
 # map object
 # create a list of nodes, numbered 0 .. n.
@@ -34,8 +37,7 @@ map_node_list = []
 
 # Create continent_list: index is continent number, value is list of node numbers in that continent
 continent_list = [[] for _ in range(6)]
-
-for node in range(0,42):
+for node in range(0, TOTAL_NODES):
     x = MapNode()
     x.num = node
     map_node_list.append(x)
@@ -52,6 +54,7 @@ for node in range(0,42):
     else:
         x.continent=5
     continent_list[x.continent].append(node)
+    continent_list[x.continent].append(node)
     
 
 
@@ -62,9 +65,9 @@ for ii in range(0,6):
 
 
 if debug_mode:
-    print(map_node_list)
-    for ii in range(0,42):
+    for ii in range(0, TOTAL_NODES):
         print("Node num = ", map_node_list[ii].num )
+        print("  Cont = ", map_node_list[ii].continent )
         print("  Cont = ", map_node_list[ii].continent )
 
 map_node_list[0].connect_list = [29,1,3]
@@ -113,8 +116,7 @@ map_node_list[41].connect_list = [39,40]
 
 # write some checking code here to test previous, make sure if one
 # node connects to others, they also connect back.
-if debug_mode:
-    for ii in range(0,42):
+    for ii in range(0, TOTAL_NODES):
         #print("Node num = ", map_node_list[ii].num )
         #print("  Cont = ", map_node_list[ii].continent )
         list1 = map_node_list[ii].connect_list
@@ -123,6 +125,7 @@ if debug_mode:
             if(not(ii in list2)):
                 print('Error in node', ii)
                 print('points to ', list_item)
+                print('Dest node does not point back')
                 print('Dest node does not point back')
 
     print('CHECK DONE')
@@ -134,8 +137,7 @@ if debug_mode:
 
 players = 4
 # Assign each node to a player, round-robin, until all nodes are assigned
-import random
-node_indices = list(range(42))
+node_indices = list(range(TOTAL_NODES))
 random.shuffle(node_indices)
 for idx, node_num in enumerate(node_indices):
     player_num = idx % players
