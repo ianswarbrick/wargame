@@ -1,6 +1,8 @@
 # Risk Main.py
 
 
+
+
 debug_mode = 1
 
 #from torch import *
@@ -54,14 +56,16 @@ for node in range(0,42):
 
 
 for ii in range(0,6):
-    print("Continent ", ii, " has nodes: ", continent_list[ii])
+    if debug_mode:
+        print("Continent ", ii, " has nodes: ", continent_list[ii])
 
 
 
-print(map_node_list)
-for ii in range(0,42):
-    print("Node num = ", map_node_list[ii].num )
-    print("  Cont = ", map_node_list[ii].continent )
+if debug_mode:
+    print(map_node_list)
+    for ii in range(0,42):
+        print("Node num = ", map_node_list[ii].num )
+        print("  Cont = ", map_node_list[ii].continent )
 
 map_node_list[0].connect_list = [29,1,3]
 map_node_list[1].connect_list = [0,1,2,3,4]
@@ -123,17 +127,38 @@ if debug_mode:
 
     print('CHECK DONE')
 
-# create grid with player owners.
-
-# define allowed connections.
-# each node has list of other nodes that are neighbours.
 
 
 # define players
+# Default to start , stick to 4 players for now.
+
+players = 4
+# Assign each node to a player, round-robin, until all nodes are assigned
+import random
+node_indices = list(range(42))
+random.shuffle(node_indices)
+for idx, node_num in enumerate(node_indices):
+    player_num = idx % players
+    map_node_list[node_num].owner = player_num
+
+# Print assignments: node number and assigned player
+if debug_mode:
+    print("Node assignments:")
+    for node in map_node_list:
+        print(f"Node {node.num} assigned to Player {node.owner}")
+
+    # Count nodes per player
+    player_counts = [0 for _ in range(players)]
+    for node in map_node_list:
+        player_counts[node.owner] += 1
+    for p in range(players):
+        print(f"Player {p} owns {player_counts[p]} nodes")
 
 # randomly assign cells to players.
 
 # foreach player
+
+
 # randomly add soldiers to cells.
 
 

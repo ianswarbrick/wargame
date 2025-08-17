@@ -5,7 +5,9 @@ class MapNode:
         self.connect_list = []
         self.continent = 0
         self.sprite_coords = []
-
+        self.owner = 0
+        self.troops = 0
+        
 
         
 
